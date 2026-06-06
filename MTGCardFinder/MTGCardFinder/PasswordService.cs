@@ -1,4 +1,12 @@
-﻿namespace MTGCardFinder
+﻿/************************************************************************************************************************  
+ *  Class           : PasswordService
+ *  Description     : Used to encrypt and decrpyt passwords
+ *  Author          : Noah Durand
+ *  Creation Date   : 2026-06-05
+ *  Last Rev. Date  : 2026-06-05
+ **********************************************************************************************************************/
+
+namespace MTGCardFinder
 {
     /// <summary>
     /// Password hashing/verifying class

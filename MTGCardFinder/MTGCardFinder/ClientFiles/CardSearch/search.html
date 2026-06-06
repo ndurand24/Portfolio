@@ -1,0 +1,106 @@
+<!--
+    Program        : search.html
+    Description    : Card search page for MTG deck builder
+    Author         : Noah Durand
+    Date Created   : 2026-06-05
+    Last Rev. Date : 2026-06-05
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="search.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.js"></script>
+    <script src="search.js"></script>
+</head>
+<body>
+    <!--Page Title/Header-->
+    <header>
+        <h1 id="title1">MTG Card Search</h1>
+    </header>
+
+    <!--Main Page Contents-->
+    <main>
+        <!--Button to return to main page-->
+        <button type="button" name="back">Back to main</button>
+
+        <section id="text_ids">
+            <h2 id="title2">Group 1</h2>
+            <label for="">Card Name: <input type="text" name="cardName"></label>
+            <label for="">Card Text: <input type="text" name="cardText"></label>
+            <label for="">Artist: <input type="text" name="cardArtist"></label>
+            <label for="">ID: <input type="text" name="cardId"></label>
+        </section>
+        <br>
+        <section id="types_subtypes">
+            <h2 id="title2">Group 2</h2>
+            <label for="">Type: <input type="text" name="cardType"></label>
+            <label for="">Supertypes: <input type="text" name="cardSupertype"></label>    
+            <label for="">Types: <input type="text" name="cardTypes"></label>
+            <label for="">Subtypes: <input type="text" name="cardSubtype"></label>     
+        </section>
+        <br>
+        <section id="costs_mana">
+            <h2 id="title2">Group 3</h2>
+            <label for="">Mana Cost: <input type="text" name="cardManaCost"></label>
+            <label for="">Converted Mana Cost: <input type="number" name="cardSupertype"></label>     
+            <label for="">Colors: 
+                <select name="cardColors" multiple>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="black">Black</option>
+                    <option value="green">Green</option>
+                    <option value="white">White</option>
+                    <option value="none">No Color</option>
+                </select>
+            </label>
+            <label for="">Color Identity: 
+               <select name="cardColorsIdentities" multiple>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="black">Black</option>
+                    <option value="green">Green</option>
+                    <option value="white">White</option>
+                    <option value="none">No Color</option>
+                </select>
+            </label>   
+        </section>
+        <br>
+        <section id="stats_nums">
+            <h2 id="title2">Group 4</h2>
+            <label for="">Power: <input type="text" name="cardPower"></label>
+            <label for="">Toughness: <input type="text" name="cardToughness"></label>
+            <label for="">Loyalty: <input type="text" name="cardLoyalty"></label>
+            <label for="">Number: <input type="text" name="cardNumber"></label>
+        </section>
+        <br>
+        <section id="sets_releases">
+            <h2 id="title2">Group 5</h2>
+            <label for="">Set: <input type="text" name="cardName"></label>
+            <label for="">Set Name: <input type="text" name="cardText"></label>
+            <label for="">Rarity: <input type="text" name="cardArtist"></label>
+            <label for="">Border: <input type="text" name="cardId"></label>
+            <label for="">Reserved: <input type="text" name="cardArtist"></label>
+            <label for="">Release Date: <input type="text" name="cardId"></label>
+        </section>
+        <br>
+        <section id="formats_legality">
+            <h2 id="title2">Group 6</h2>
+            <label for="">Game Format: <input type="text" name="cardFormat"></label>
+            <label for="">Legality: <input type="text" name="cardLegality"></label>
+        </section>
+    </main>
+
+    <!--Footer of page. Contains Author and last revision date-->
+    <footer>
+        <p>&copy Noah Durand</p>
+        <script>
+            document.write("Last Modified " + document.lastModified);
+        </script>
+    </footer>
+    
+</body>
+</html>

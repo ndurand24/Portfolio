@@ -1,6 +1,6 @@
 /**********************************************************************************
- *   Program        : main.js
- *   Description    : Service layer for MTG main page
+ *   Program        : search.js
+ *   Description    : Service layer for MTG search page
  *   Author         : Noah Durand
  *   Date Created   : 2026-06-05
  *   Last Rev. Date : 2026-06-05
@@ -16,25 +16,10 @@ let url = "https://localhost:7101"
     Returns     : Nothing
 ******************************************************************************/
 $(() => {
-    $("[name=logout]").on("click", function(){
-        MakeAjaxCall(url + "/logout", "POST", {}, "json", LogoutSuccess, AjaxError);
-    })
-
-    $("[name=cardSearch]").on("click", function(){
-        window.location.href = "../CardSearch/search.html";
+    $("[name=back]").on("click", function(){
+        window.location.href = "../Main/main.html"
     })
 })
-
-/******************************************************************************
-    Function    : LogoutSuccess()
-    Description : Redirects user to login page
-    Returns     : Nothing
-******************************************************************************/
-function LogoutSuccess(jsonData)
-{
-    console.log(jsonData);
-    window.location.replace("../Login/login.html");
-}
 
 /******************************************************************************
     Function    : MakeAjaxCall()

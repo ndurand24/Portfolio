@@ -1,3 +1,11 @@
+<!--
+    Program        : register.html
+    Description    : Register page for MTG deck builder
+    Author         : Noah Durand
+    Date Created   : 2026-06-05
+    Last Rev. Date : 2026-06-05
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,23 +17,37 @@
     <script src="register.js"></script>
 </head>
 <body>
-        <header>
+    <!--Page Title/Header-->
+    <header>
         <h1>MTG Card Finder/Deck Builder</h1>
     </header>
 
+    <!--Main Page Contents-->
     <main>
+        <!--Response from server goes here-->
+        <p id="responseText"></p>
+
+        <!--Email, username, new password and re-entered password all needed to register
+            Register button registers new user. Back to login sends user back-->
         <label for="">Email: <input type="text" placeholder="Enter email" name="email"></label>
+        <br>
         <label for="">Username: <input type="text" placeholder="Enter username" name="username"></label>
+        <br>
         <label for="">New Password: <input type="password" placeholder="Enter password" name="password"></label>
+        <br>
         <label for="">Re-enter Password: <input type="password" placeholder="Re-enter password" name="repassword"></label>
         <br>
-        <button type="button" name="login">Login</button>
-        <br>
         <button type="button" name="register">Register</button>
+        <br>
+        <button type="button" name="backToLogin">Back to Login</button>
     </main>
     
+    <!--Footer of page. Contains Author and last revision date-->
     <footer>
-        <p>Noah Durand</p>
+        <p>&copy Noah Durand</p>
+        <script>
+            document.write("Last Modified " + document.lastModified);
+        </script>
     </footer>
 </body>
 </html>

@@ -1,9 +1,10 @@
-/*  Program         : MTG Card Finder + Deck Builder
+/************************************************************************************************************************  
+ *  Program         : MTG Card Finder + Deck Builder
  *  Description     : Simple program to help MTG players search for cards and create temporary decks before purchasing
  *  Author          : Noah Durand
  *  Creation Date   : 2026-06-05
  *  Last Rev. Date  : 2026-06-05
- */
+ **********************************************************************************************************************/
 
 using MTGCardFinder.MTGDB;
 using System.Text.RegularExpressions;
@@ -11,6 +12,8 @@ using BCrypt.Net;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using MtgApiManager.Lib;
+using MtgApiManager.Lib.Service;
 
 namespace MTGCardFinder
 {
@@ -95,6 +98,12 @@ namespace MTGCardFinder
 
             });
 
+            // Card search GET request
+            app.MapGet("/search", async () =>
+            {
+                IMtgServiceProvider serviceProvider = new MtgServiceProvider();
+            });
+
             // User login endpoint
             app.MapPost("/login", async (UserData ud, HttpContext httpContext) =>
             {
@@ -147,6 +156,14 @@ namespace MTGCardFinder
                     string username = CleanInput(ud.username); // client username
                     string password = CleanInput(ud.password); // client password
 
+                    // Ensure all required data is present
+                    if (string.IsNullOrWhiteSpace(email))
+                        return Results.BadRequest(new { status = "Must enter an Email." });
+                    if (string.IsNullOrWhiteSpace(username))
+                        return Results.BadRequest(new { status = "Must enter a username" });
+                    if (string.IsNullOrEmpty(password))
+                        return Results.BadRequest(new { status = "Must enter a password" });
+
                     if (!(db.Users.Any(user => user.Username == username))) // Verify user doesn't already exist
                     {
                         // Create new user and save db changes
@@ -171,6 +188,7 @@ namespace MTGCardFinder
                 }
             });
 
+            // Logout and clear cookies
             app.MapPost("/logout", async (HttpContext httpContext) =>
             {
                 var db = new MtgDbContext();

@@ -1,3 +1,11 @@
+<!--
+    Program        : login.html
+    Description    : Login page for MTG deck builder
+    Author         : Noah Durand
+    Date Created   : 2026-06-05
+    Last Rev. Date : 2026-06-05
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +18,19 @@
 </head>
     <link rel="icon" href="data:,">
 <body>
+    <!--Page Title/Header-->
     <header>
         <h1>MTG Card Finder/Deck Builder</h1>
     </header>
 
+    <!--Main Page Contents-->
     <main>
+        <!--Response from server goes here-->
+        <p id="responseText"></p>
+
+        <!--Username, password, and login button to login. Register button to redirect to register page-->
         <label for="">Username: <input type="text" placeholder="Enter username" name="username"></label>
+        <br>
         <label for="">Password: <input type="password" placeholder="Enter password" name="password" ></label>
         <br>
         <button type="button" name="login">Login</button>
@@ -23,8 +38,12 @@
         <button type="button" name="register">Register</button>
     </main>
     
+    <!--Footer of page. Contains Author and last revision date-->
     <footer>
-        <p>Noah Durand</p>
+        <p>&copy Noah Durand</p>
+        <script>
+            document.write("Last Modified " + document.lastModified);
+        </script>
     </footer>
 </body>
 </html>

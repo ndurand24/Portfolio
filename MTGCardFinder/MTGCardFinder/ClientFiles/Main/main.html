@@ -1,3 +1,11 @@
+<!--
+    Program        : main.html
+    Description    : Main page for MTG deck builder
+    Author         : Noah Durand
+    Date Created   : 2026-06-05
+    Last Rev. Date : 2026-06-05
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +17,17 @@
     <script src="main.js"></script>
 </head>
 <body>
+    <!--Page Title/Header-->
     <header>
         <h1>MTG Main Page</h1>
     </header>
 
+    <!--Main Page Contents-->
     <main>
+        <!--Response from server goes here-->
+        <p id="responseText"></p>
+
+        <!--Each button redirects to new page-->
         <button type="button" name="cardSearch">Card Search</button>
         <br>
         <button type="button" name="myDecks">My Decks</button>
@@ -21,8 +35,12 @@
         <button type="button" name="logout">Logout</button>
     </main>
 
+    <!--Footer of page. Contains Author and last revision date-->
     <footer>
-        <p>Noah Durand</p>
+        <p>&copy Noah Durand</p>
+        <script>
+            document.write("Last Modified " + document.lastModified);
+        </script>
     </footer>
 </body>
 </html>
