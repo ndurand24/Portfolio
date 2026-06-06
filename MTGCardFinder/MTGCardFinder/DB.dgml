@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Database" Label="DeckBuilderdb.db" Category="Database" Group="Expanded" />
+    <Node Id="CardPrintings" Label="CardPrintings" Category="Table" Group="Collapsed" />
+    <Node Id="CardPrintings_printing_id" Label="printing_id" Category="Field Primary" Description="bigint" />
+    <Node Id="CardPrintings_card_id" Label="card_id" Category="Field Foreign" Description="bigint" />
+    <Node Id="CardPrintings_set_code" Label="set_code" Category="Field" Description="text" />
+    <Node Id="CardPrintings_collector_number" Label="collector_number" Category="Field" Description="text" />
+    <Node Id="CardPrintings_rarity" Label="rarity" Category="Field" Description="text" />
+    <Node Id="CardPrintings_artist" Label="artist" Category="Field Optional" Description="text" />
+    <Node Id="CardPrintings_flavor_text" Label="flavor_text" Category="Field Optional" Description="text" />
+    <Node Id="Cards" Label="Cards" Category="Table" Group="Collapsed" />
+    <Node Id="Cards_card_id" Label="card_id" Category="Field Primary" Description="bigint" />
+    <Node Id="Cards_name" Label="name" Category="Field" Description="text" />
+    <Node Id="Cards_mana_cost" Label="mana_cost" Category="Field Optional" Description="text" />
+    <Node Id="Cards_mana_value" Label="mana_value" Category="Field Optional" Description="bigint" />
+    <Node Id="Cards_type_line" Label="type_line" Category="Field" Description="text" />
+    <Node Id="Cards_oracle_text" Label="oracle_text" Category="Field Optional" Description="text" />
+    <Node Id="Cards_creature_power" Label="creature_power" Category="Field Optional" Description="text" />
+    <Node Id="Cards_creature_toughness" Label="creature_toughness" Category="Field Optional" Description="text" />
+    <Node Id="DeckCards" Label="DeckCards" Category="Table" Group="Collapsed" />
+    <Node Id="DeckCards_deck_id" Label="deck_id" Category="Field Primary" Description="bigint" />
+    <Node Id="DeckCards_card_id" Label="card_id" Category="Field Primary" Description="bigint" />
+    <Node Id="DeckCards_quantity" Label="quantity" Category="Field" Description="bigint" />
+    <Node Id="DeckCards_is_sideboard" Label="is_sideboard" Category="Field Primary" Description="bigint" />
+    <Node Id="Decks" Label="Decks" Category="Table" Group="Collapsed" />
+    <Node Id="Decks_deck_id" Label="deck_id" Category="Field Primary" Description="bigint" />
+    <Node Id="Decks_deck_name" Label="deck_name" Category="Field Optional" Description="text" />
+    <Node Id="Decks_format" Label="format" Category="Field" Description="text" />
+    <Node Id="Decks_user_id" Label="user_id" Category="Field Foreign" Description="bigint" />
+    <Node Id="Users" Label="Users" Category="Table" Group="Collapsed" />
+    <Node Id="Users_user_id" Label="user_id" Category="Field Primary" Description="bigint" />
+    <Node Id="Users_username" Label="username" Category="Field" Description="text" />
+    <Node Id="Users_password" Label="password" Category="Field" Description="text" />
+    <Node Id="Users_email" Label="email" Category="Field" Description="text" />
+  </Nodes>
+  <Links>
+    <Link Source="Database" Target="CardPrintings" Category="Contains" />
+    <Link Source="CardPrintings" Target="CardPrintings_printing_id" Category="Contains" />
+    <Link Source="CardPrintings" Target="CardPrintings_card_id" Category="Contains" />
+    <Link Source="CardPrintings" Target="CardPrintings_set_code" Category="Contains" />
+    <Link Source="CardPrintings" Target="CardPrintings_collector_number" Category="Contains" />
+    <Link Source="CardPrintings" Target="CardPrintings_rarity" Category="Contains" />
+    <Link Source="CardPrintings" Target="CardPrintings_artist" Category="Contains" />
+    <Link Source="CardPrintings" Target="CardPrintings_flavor_text" Category="Contains" />
+    <Link Source="CardPrintings_card_id" Target="Cards_card_id" Label="FK_CardPrintings_0_0" Category="Foreign Key" />
+    <Link Source="Database" Target="Cards" Category="Contains" />
+    <Link Source="Cards" Target="Cards_card_id" Category="Contains" />
+    <Link Source="Cards" Target="Cards_name" Category="Contains" />
+    <Link Source="Cards" Target="Cards_mana_cost" Category="Contains" />
+    <Link Source="Cards" Target="Cards_mana_value" Category="Contains" />
+    <Link Source="Cards" Target="Cards_type_line" Category="Contains" />
+    <Link Source="Cards" Target="Cards_oracle_text" Category="Contains" />
+    <Link Source="Cards" Target="Cards_creature_power" Category="Contains" />
+    <Link Source="Cards" Target="Cards_creature_toughness" Category="Contains" />
+    <Link Source="Database" Target="DeckCards" Category="Contains" />
+    <Link Source="DeckCards" Target="DeckCards_deck_id" Category="Contains" />
+    <Link Source="DeckCards" Target="DeckCards_card_id" Category="Contains" />
+    <Link Source="DeckCards" Target="DeckCards_quantity" Category="Contains" />
+    <Link Source="DeckCards" Target="DeckCards_is_sideboard" Category="Contains" />
+    <Link Source="DeckCards_card_id" Target="Cards_card_id" Label="FK_DeckCards_0_0" Category="Foreign Key" />
+    <Link Source="DeckCards_deck_id" Target="Decks_deck_id" Label="FK_DeckCards_1_0" Category="Foreign Key" />
+    <Link Source="Database" Target="Decks" Category="Contains" />
+    <Link Source="Decks" Target="Decks_deck_id" Category="Contains" />
+    <Link Source="Decks" Target="Decks_deck_name" Category="Contains" />
+    <Link Source="Decks" Target="Decks_format" Category="Contains" />
+    <Link Source="Decks" Target="Decks_user_id" Category="Contains" />
+    <Link Source="Decks_user_id" Target="Users_user_id" Label="FK_Decks_0_0" Category="Foreign Key" />
+    <Link Source="Database" Target="Users" Category="Contains" />
+    <Link Source="Users" Target="Users_user_id" Category="Contains" />
+    <Link Source="Users" Target="Users_username" Category="Contains" />
+    <Link Source="Users" Target="Users_password" Category="Contains" />
+    <Link Source="Users" Target="Users_email" Category="Contains" />
+  </Links>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Table" ValueLabel="True">
+      <Condition Expression="HasCategory('Table')" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Schema" ValueLabel="True">
+      <Condition Expression="HasCategory('Schema')" />
+      <Setter Property="Background" Value="#FF7F9169" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Primary" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Primary')" />
+      <Setter Property="Background" Value="#FF008000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Optional" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Optional')" />
+      <Setter Property="Background" Value="#FF808040" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Foreign" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Foreign')" />
+      <Setter Property="Background" Value="#FF8080FF" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field" ValueLabel="True">
+      <Condition Expression="HasCategory('Field')" />
+      <Setter Property="Background" Value="#FFC0A000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Database" ValueLabel="True">
+      <Condition Expression="HasCategory('Database')" />
+      <Setter Property="Background" Value="#FFFFFFFF" />
+    </Style>
+  </Styles>
+</DirectedGraph>
