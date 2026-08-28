@@ -1,0 +1,26 @@
+header{
+    text-align: center;
+}
+
+table, tr, th, td{
+    border: 1px;
+    border-color: black;
+    border-style:solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+section{
+    justify-items: center;
+}
+
+footer{
+    text-align: center;
+}
+
+img{
+    width: 223px;
+    height: auto;
+    aspect-ratio: 223 / 311;
+    border-radius: 4.7%;
+}

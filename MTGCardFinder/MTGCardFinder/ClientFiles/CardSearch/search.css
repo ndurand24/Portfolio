@@ -3,7 +3,7 @@
 *   Description     : Default search page css styling
 *   Author          : Noah Durand 
 *   Date Created    : 2026-06-05
-*   Last Rev. Date  : 2026-06-05
+*   Last Rev. Date  : 2026-06-10
 *******************************************************/
 
 header{
@@ -23,6 +23,11 @@ button{
     text-align: center;
     padding-left: 15%;
     padding-right: 15%;
+}
+
+#cardCMC{
+    grid-row: 2;
+    grid-column: span 2;
 }
 
 #sets_releases{

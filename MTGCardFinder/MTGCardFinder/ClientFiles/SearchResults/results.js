@@ -3,11 +3,11 @@
  *   Description    : Service layer for MTG search page
  *   Author         : Noah Durand
  *   Date Created   : 2026-06-05
- *   Last Rev. Date : 2026-06-05
+ *   Last Rev. Date : 2026-06-10
  **********************************************************************************/
 
 
-// URL for APS local server (Subject to change on live deployment)
+// URL for ASP local server (Subject to change on live deployment)
 let url = "https://localhost:7101"
 
 /******************************************************************************
@@ -15,25 +15,28 @@ let url = "https://localhost:7101"
     Description : Assigns callback functions to page elements
     Returns     : Nothing
 ******************************************************************************/
+
 $(() => {
-    $("[name=back]").on("click", function(){
-        window.location.href = "../Main/main.html"
+    let searchData = {};
+
+    Object.keys(sessionStorage).forEach(function(key){
+        searchData[key] = sessionStorage.getItem(key);
     })
 
-    $("[name=search]").on("click", function(){
-        SearchCard();
-    })
+    MakeAjaxCall(url + "/search", "GET", searchData, "json", SearchSuccess, AjaxError);
 })
 
-function SearchCard()
+function SearchSuccess(ajaxData)
 {
-    sessionStorage.clear();
-    console.log($("[name=cardName]").val());
-    $("input").each(function () {
-        sessionStorage.setItem($(this).attr("name"), $(this).val());
+    console.log(ajaxData);
+
+    let table = "<table><tr><th>Image</th><th>Name</th></tr>";
+
+    ajaxData.forEach(element => {
+        table += "<tr><td><img src=\"" + element.imageUrl + "\" alt=\"Error Loading Image\"></td><td>" + element.name + "</td>";
     });
 
-    window.location.href = "../SearchResults/results.html";
+    $("#resultsTable").html(table);
 }
 
 /******************************************************************************

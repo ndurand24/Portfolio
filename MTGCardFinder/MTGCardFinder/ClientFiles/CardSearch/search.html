@@ -3,7 +3,7 @@
     Description    : Card search page for MTG deck builder
     Author         : Noah Durand
     Date Created   : 2026-06-05
-    Last Rev. Date : 2026-06-05
+    Last Rev. Date : 2026-06-10
 -->
 
 <!DOCTYPE html>
@@ -26,6 +26,7 @@
     <main>
         <!--Button to return to main page-->
         <button type="button" name="back">Back to main</button>
+        <button type="button" name="search">Search</button>
 
         <section id="text_ids">
             <h2 id="title2">Group 1</h2>
@@ -45,8 +46,7 @@
         <br>
         <section id="costs_mana">
             <h2 id="title2">Group 3</h2>
-            <label for="">Mana Cost: <input type="text" name="cardManaCost"></label>
-            <label for="">Converted Mana Cost: <input type="number" name="cardSupertype"></label>     
+            <label for="" id="cardCMC">Converted Mana Cost: <input type="number" name="cardCMC"></label>     
             <label for="">Colors: 
                 <select name="cardColors" multiple>
                     <option value="red">Red</option>
@@ -79,12 +79,12 @@
         <br>
         <section id="sets_releases">
             <h2 id="title2">Group 5</h2>
-            <label for="">Set: <input type="text" name="cardName"></label>
-            <label for="">Set Name: <input type="text" name="cardText"></label>
-            <label for="">Rarity: <input type="text" name="cardArtist"></label>
-            <label for="">Border: <input type="text" name="cardId"></label>
-            <label for="">Reserved: <input type="text" name="cardArtist"></label>
-            <label for="">Release Date: <input type="text" name="cardId"></label>
+            <label for="">Set: <input type="text" name="cardSet"></label>
+            <label for="">Set Name: <input type="text" name="cardSetName"></label>
+            <label for="">Rarity: <input type="text" name="cardRarity"></label>
+            <label for="">Border: <input type="text" name="cardBorder"></label>
+            <label for="">Reserved: <input type="text" name="cardReserved"></label>
+            <label for="">Release Date: <input type="text" name="cardDate"></label>
         </section>
         <br>
         <section id="formats_legality">

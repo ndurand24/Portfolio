@@ -3,7 +3,7 @@
  *  Description     : Simple program to help MTG players search for cards and create temporary decks before purchasing
  *  Author          : Noah Durand
  *  Creation Date   : 2026-06-05
- *  Last Rev. Date  : 2026-06-05
+ *  Last Rev. Date  : 2026-06-10
  **********************************************************************************************************************/
 
 using MTGCardFinder.MTGDB;
@@ -14,6 +14,10 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using MtgApiManager.Lib;
 using MtgApiManager.Lib.Service;
+using MtgApiManager.Lib.Core;
+using MtgApiManager.Lib.Model;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace MTGCardFinder
 {
@@ -48,8 +52,17 @@ namespace MTGCardFinder
             // Direct authentication to login endpoint, set time limit to 20min
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
-                options.LoginPath = "/login";
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+
+                options.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return Task.CompletedTask;
+                };
             });
 
             var app = builder.Build();
@@ -99,9 +112,86 @@ namespace MTGCardFinder
             });
 
             // Card search GET request
-            app.MapGet("/search", async () =>
+            app.MapGet("/search", async (HttpRequest request) =>
             {
+                // Create MTGServideProvider()
                 IMtgServiceProvider serviceProvider = new MtgServiceProvider();
+                ICardService service = serviceProvider.GetCardService();
+                var query = service;
+                // Get json data from get request
+                string rawJSON = request.Query.Keys.FirstOrDefault();
+
+                // Ignore if null
+                if (!string.IsNullOrEmpty(rawJSON))
+                {
+                    try
+                    {
+                        // Deserialize object into Dictionary
+                        var searchData = JsonConvert.DeserializeObject<Dictionary<string, string>>(rawJSON);
+
+                        // Check for Keys (query parameters from user) and add to query if present
+                        if (searchData != null)
+                        {
+                            if (searchData.TryGetValue("cardName", out var name) && !string.IsNullOrEmpty(name))
+                                query = query.Where(x => x.Name, name);
+                            if (searchData.TryGetValue("cardText", out var text) && !string.IsNullOrEmpty(text))
+                                query = query.Where(x => x.Text, text);
+                            if (searchData.TryGetValue("cardArtist", out var artist) && !string.IsNullOrEmpty(artist))
+                                query = query.Where(x => x.Artist, artist);
+                            if (searchData.TryGetValue("cardId", out var id) && !string.IsNullOrEmpty(id))
+                                query = query.Where(x => x.Id, id);
+                            if (searchData.TryGetValue("cardType", out var type) && !string.IsNullOrEmpty(type))
+                                query = query.Where(x => x.Type, type);
+                            if (searchData.TryGetValue("cardSupertype", out var superType) && !string.IsNullOrEmpty(superType))
+                                query = query.Where(x => x.SuperTypes, superType);
+                            if (searchData.TryGetValue("cardTypes", out var types) && !string.IsNullOrEmpty(types))
+                                query = query.Where(x => x.Types, types);
+                            if (searchData.TryGetValue("cardSubtype", out var subtype) && !string.IsNullOrEmpty(subtype))
+                                query = query.Where(x => x.SubTypes, subtype);
+                            if (searchData.TryGetValue("cardCMC", out var cmc) && !string.IsNullOrEmpty(cmc))
+                                query = query.Where(x => x.Cmc, cmc);
+                            if (searchData.TryGetValue("cardColors", out var colors) && !string.IsNullOrEmpty(colors))
+                                query = query.Where(x => x.Colors, colors);
+                            if (searchData.TryGetValue("cardColorsIdentities", out var identity) && !string.IsNullOrEmpty(identity))
+                                query = query.Where(x => x.ColorIdentity, identity);
+                            if (searchData.TryGetValue("cardPower", out var power) && !string.IsNullOrEmpty(power))
+                                query = query.Where(x => x.Power, power);
+                            if (searchData.TryGetValue("cardToughness", out var toughness) && !string.IsNullOrEmpty(toughness))
+                                query = query.Where(x => x.Toughness, toughness);
+                            if (searchData.TryGetValue("cardLoyalty", out var loyalty) && !string.IsNullOrEmpty(loyalty))
+                                query = query.Where(x => x.Loyalty, loyalty);
+                            if (searchData.TryGetValue("cardNumber", out var number) && !string.IsNullOrEmpty(number))
+                                query = query.Where(x => x.Number, number);
+                            if (searchData.TryGetValue("cardSet", out var setCode) && !string.IsNullOrEmpty(setCode))
+                                query = query.Where(x => x.Set, setCode);
+                            if (searchData.TryGetValue("cardSetName", out var setName) && !string.IsNullOrEmpty(setName))
+                                query = query.Where(x => x.SetName, setName);
+                            if (searchData.TryGetValue("cardRarity", out var rarity) && !string.IsNullOrEmpty(rarity))
+                                query = query.Where(x => x.Rarity, rarity);
+
+                            // Note: Border, Reserved, and Release Date are not filterable directly in the standard MTG SDK query 
+                            // options. If you need to filter on them, you can perform an in-memory filter later on the list.
+
+                            if (searchData.TryGetValue("cardFormat", out var gameFormat) && !string.IsNullOrEmpty(gameFormat))
+                                query = query.Where(x => x.GameFormat, gameFormat);
+                            if (searchData.TryGetValue("cardLegality", out var legality) && !string.IsNullOrEmpty(legality))
+                                query = query.Where(x => x.Legality, legality);
+                        }
+                    }
+                    catch (JsonException)
+                    {
+                        return Results.BadRequest(new { status = "Invalid search format" });
+                    }
+                }
+
+                // Send final query to MTG service
+                var results = await query.AllAsync();
+                if (results.IsSuccess)
+                {
+                    return Results.Ok(results.Value);
+                }
+
+                return Results.BadRequest(new { status = "Error in card search" });
             });
 
             // User login endpoint
